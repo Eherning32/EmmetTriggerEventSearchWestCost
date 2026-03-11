@@ -36,16 +36,10 @@ jobs:
           # Verify imports work
           python3 -c "import requests; import yaml; print('Dependencies OK')"
 
-      - name: Setup config
-        run: |
-          cp config.example.yaml config.yaml
-
-          # Show database status
-          if [ -f trigger_events.db ]; then
-            echo "Database found ($(stat -c%s trigger_events.db) bytes)"
-          else
-            echo "No existing database - first run"
-          fi
+- name: Setup config
+          run: |
+            echo "Using existing config.yaml"
+            ls -la config.yaml
 
       - name: Configure email
         env:
