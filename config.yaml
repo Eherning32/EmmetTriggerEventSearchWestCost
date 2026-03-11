@@ -751,8 +751,8 @@ company_filters:
 
   min_employees: 20
   max_employees: 2000
-  min_revenue_millions: 20
-  max_revenue_millions: 500
+  min_revenue_millions: 5
+  max_revenue_millions: 200
 
   target_size_indicators:
     - "mid-market"
