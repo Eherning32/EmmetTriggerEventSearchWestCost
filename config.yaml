@@ -1015,7 +1015,7 @@ sources:
     - name: "Kansas City Business Journal"
       url: "https://www.bizjournals.com/kansascity/feed/rss2.xml"
       enabled: true
-      - name: "Modern Healthcare"
+    - name: "Modern Healthcare"
       url: "https://www.modernhealthcare.com/rss/news.rss"
       enabled: true
     - name: "Behavioral Health Business"
