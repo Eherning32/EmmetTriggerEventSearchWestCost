@@ -936,16 +936,16 @@ sources:
       enabled: true
     - name: "Utility Dive"
       url: "https://www.utilitydive.com/feeds/news/"
-      enabled: true
+      enabled: false
     - name: "Solar Power World"
       url: "https://www.solarpowerworldonline.com/feed/"
-      enabled: true
+      enabled: false
     - name: "Data Center Dynamics"
       url: "https://www.datacenterdynamics.com/en/rss/"
-      enabled: true
+      enabled: false
     - name: "Data Center Knowledge"
       url: "https://www.datacenterknowledge.com/rss.xml"
-      enabled: true
+      enabled: false
     - name: "Hotel Management"
       url: "https://www.hotelmanagement.net/rss.xml"
       enabled: true
@@ -957,19 +957,19 @@ sources:
       enabled: true
     - name: "WebWire - Oil & Energy"
       url: "http://rssfeeds.webwire.com/WebWire-News-Oil-Energy"
-      enabled: true
+      enabled: false
     - name: "CDC Gaming Reports"
       url: "https://cdcgaming.com/feed/"
-      enabled: true
+      enabled: false
     - name: "SBC Americas (Sports Betting)"
       url: "https://sbcamericas.com/feed/"
-      enabled: true
+      enabled: false
     - name: "Supply Chain Brain"
       url: "https://www.supplychainbrain.com/rss/articles"
-      enabled: true
+      enabled: false
     - name: "FreightWaves"
       url: "https://www.freightwaves.com/news/feed"
-      enabled: true
+      enabled: false
     - name: "Hotel Dive"
       url: "https://www.hoteldive.com/feeds/news/"
       enabled: true
