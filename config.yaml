@@ -976,7 +976,7 @@ sources:
     - name: "Skift (Travel Industry)"
       url: "https://skift.com/feed/"
       enabled: true
-      - name: "Pacific Business News"
+    - name: "Pacific Business News"
       url: "https://www.bizjournals.com/pacific/feed/rss2.xml"
       enabled: true
     - name: "Puget Sound Business Journal"
