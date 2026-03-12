@@ -50,60 +50,53 @@ class GoogleNewsScraper(BaseScraper):
         queries = []
 
         # Key regions to search (limit to avoid too many requests)
-        key_regions = ['New York', 'Boston', 'Toronto', 'Philadelphia', 'Charlotte']
+        # Key regions - West Coast territory only
+        key_regions = ['Seattle', 'Portland', 'Phoenix', 'Denver', 'Salt Lake City',
+                       'Las Vegas', 'Boise', 'Albuquerque', 'Calgary', 'Vancouver',
+                       'Winnipeg', 'Minneapolis', 'Kansas City']
 
-        # CFO hire queries
-        cfo_terms = ['CFO appointed', 'new CFO', 'names CFO', 'CFO hire']
+        # Target industries - ICP segments only
+        target_industries = [
+            'healthcare', 'hospital', 'health system', 'home health',
+            'skilled nursing', 'assisted living', 'behavioral health',
+            'insurance', 'insurance agency', 'insurance brokerage',
+            'nonprofit', 'foundation', 'human services',
+            'hotel', 'hospitality', 'restaurant', 'food service',
+            'construction', 'general contractor', 'engineering'
+        ]
+
+        # CFO hire queries - industry specific
+        cfo_terms = ['CFO appointed', 'new CFO', 'names CFO', 'CFO hire',
+                     'hires CFO', 'Controller appointed', 'new Controller',
+                     'VP Finance appointed', 'Director of Finance appointed']
         for term in cfo_terms:
             queries.append((term, EventType.CFO_HIRE, False))
 
-        # M&A queries with region
-        ma_terms = ['acquisition announced', 'company acquired', 'merger agreement']
-        for term in ma_terms:
-            for region in key_regions[:3]:  # Limit regions
-                queries.append((f'{term} {region}', EventType.MERGER_ACQUISITION, False))
-
-        # Industry-specific queries
-        industries = ['healthcare', 'hospital', 'construction', 'restaurant franchise', 'insurance']
-        for industry in industries:
+        # Industry + CFO queries
+        for industry in target_industries:
             queries.append((f'{industry} CFO', EventType.CFO_HIRE, False))
             queries.append((f'{industry} acquisition', EventType.MERGER_ACQUISITION, False))
 
-        # LinkedIn-sourced news (executive moves often announced there first)
-        # Skip territory filter for LinkedIn - executives don't always mention location
-        linkedin_queries = [
-            ('site:linkedin.com CFO appointed', EventType.CFO_HIRE, True),
-            ('site:linkedin.com "excited to announce" CFO', EventType.CFO_HIRE, True),
-            ('site:linkedin.com "new role" CFO finance', EventType.CFO_HIRE, True),
-            ('site:linkedin.com "thrilled to join" CFO', EventType.CFO_HIRE, True),
-            ('site:linkedin.com "joined as" CFO', EventType.CFO_HIRE, True),
-            ('site:linkedin.com "Chief Financial Officer"', EventType.CFO_HIRE, True),
-            ('site:linkedin.com acquisition announced', EventType.MERGER_ACQUISITION, True),
-            ('site:linkedin.com "pleased to announce" acquisition', EventType.MERGER_ACQUISITION, True),
-            ('site:linkedin.com funding round raised', EventType.FUNDING, True),
-        ]
-        queries.extend(linkedin_queries)
+        # M&A queries with west coast regions
+        ma_terms = ['acquisition announced', 'company acquired', 'merger agreement']
+        for term in ma_terms:
+            for region in key_regions[:4]:
+                queries.append((f'{term} {region}', EventType.MERGER_ACQUISITION, False))
 
-        # Crunchbase-sourced news (funding rounds, acquisitions)
-        crunchbase_queries = [
-            ('site:crunchbase.com series funding', EventType.FUNDING, False),
-            ('site:crunchbase.com acquisition', EventType.MERGER_ACQUISITION, False),
-            ('site:news.crunchbase.com raises', EventType.FUNDING, False),
-            ('site:news.crunchbase.com acquired', EventType.MERGER_ACQUISITION, False),
-        ]
-        queries.extend(crunchbase_queries)
-
-        # Private equity portfolio company moves
+        # PE/funding queries focused on ICP industries
         pe_queries = [
             ('"private equity" "portfolio company" CFO', EventType.CFO_HIRE, True),
             ('"PE-backed" CFO appointed', EventType.CFO_HIRE, True),
             ('"platform company" CFO', EventType.CFO_HIRE, True),
             ('"add-on acquisition"', EventType.MERGER_ACQUISITION, True),
             ('"bolt-on acquisition"', EventType.MERGER_ACQUISITION, True),
+            ('"private equity" healthcare acquisition', EventType.MERGER_ACQUISITION, False),
+            ('"private equity" insurance acquisition', EventType.MERGER_ACQUISITION, False),
+            ('"private equity" hospitality acquisition', EventType.MERGER_ACQUISITION, False),
         ]
         queries.extend(pe_queries)
 
-        # Companies in transition (interim/fractional = opportunity)
+        # Interim/fractional CFO = hot opportunity
         transition_queries = [
             ('"interim CFO"', EventType.CFO_HIRE, False),
             ('"fractional CFO"', EventType.CFO_HIRE, False),
@@ -113,32 +106,16 @@ class GoogleNewsScraper(BaseScraper):
         ]
         queries.extend(transition_queries)
 
-        # Expansion signals (companies growing = need services)
-        expansion_queries = [
-            ('"new headquarters" OR "relocating headquarters"', EventType.OTHER, False),
-            ('"office expansion" OR "expanding operations"', EventType.OTHER, False),
-            ('"opened new office"', EventType.OTHER, False),
+        # LinkedIn executive moves
+        linkedin_queries = [
+            ('site:linkedin.com CFO appointed', EventType.CFO_HIRE, True),
+            ('site:linkedin.com "excited to announce" CFO', EventType.CFO_HIRE, True),
+            ('site:linkedin.com "thrilled to join" CFO', EventType.CFO_HIRE, True),
+            ('site:linkedin.com "joined as" CFO', EventType.CFO_HIRE, True),
+            ('site:linkedin.com "Chief Financial Officer"', EventType.CFO_HIRE, True),
+            ('site:linkedin.com acquisition announced', EventType.MERGER_ACQUISITION, True),
         ]
-        queries.extend(expansion_queries)
-
-        # Product/service/market launches (companies investing in growth)
-        launch_queries = [
-            ('"launches new product" OR "new product launch"', EventType.OTHER, False),
-            ('"launches new service" OR "new service offering"', EventType.OTHER, False),
-            ('"enters new market" OR "market expansion"', EventType.OTHER, False),
-            ('"new business line" OR "new division"', EventType.OTHER, False),
-            ('"pleased to announce the launch"', EventType.OTHER, False),
-            ('"expands into" OR "expanding into"', EventType.OTHER, False),
-        ]
-        queries.extend(launch_queries)
-
-        # TechCrunch funding coverage
-        techcrunch_queries = [
-            ('site:techcrunch.com "series A"', EventType.FUNDING, True),
-            ('site:techcrunch.com "series B"', EventType.FUNDING, True),
-            ('site:techcrunch.com "raises" million', EventType.FUNDING, True),
-        ]
-        queries.extend(techcrunch_queries)
+        queries.extend(linkedin_queries)
 
         return queries
 
