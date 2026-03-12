@@ -975,6 +975,44 @@ sources:
       enabled: true
     - name: "Skift (Travel Industry)"
       url: "https://skift.com/feed/"
+      enabled: true- name: "Pacific Business News"
+      url: "https://www.bizjournals.com/pacific/feed/rss2.xml"
+      enabled: true
+    - name: "Puget Sound Business Journal"
+      url: "https://www.bizjournals.com/seattle/feed/rss2.xml"
+      enabled: true
+    - name: "Portland Business Journal"
+      url: "https://www.bizjournals.com/portland/feed/rss2.xml"
+      enabled: true
+    - name: "Phoenix Business Journal"
+      url: "https://www.bizjournals.com/phoenix/feed/rss2.xml"
+      enabled: true
+    - name: "Denver Business Journal"
+      url: "https://www.bizjournals.com/denver/feed/rss2.xml"
+      enabled: true
+    - name: "Salt Lake City Business Journal"
+      url: "https://www.bizjournals.com/saltlake/feed/rss2.xml"
+      enabled: true
+    - name: "Las Vegas Business Journal"
+      url: "https://www.bizjournals.com/lasvegas/feed/rss2.xml"
+      enabled: true
+    - name: "Sacramento Business Journal"
+      url: "https://www.bizjournals.com/sacramento/feed/rss2.xml"
+      enabled: true
+    - name: "San Francisco Business Times"
+      url: "https://www.bizjournals.com/sanfrancisco/feed/rss2.xml"
+      enabled: true
+    - name: "Los Angeles Business Journal"
+      url: "https://www.bizjournals.com/losangeles/feed/rss2.xml"
+      enabled: true
+    - name: "San Diego Business Journal"
+      url: "https://www.bizjournals.com/sandiego/feed/rss2.xml"
+      enabled: true
+    - name: "Minneapolis Business Journal"
+      url: "https://www.bizjournals.com/twincities/feed/rss2.xml"
+      enabled: true
+    - name: "Kansas City Business Journal"
+      url: "https://www.bizjournals.com/kansascity/feed/rss2.xml"
       enabled: true
 
   google_news:
