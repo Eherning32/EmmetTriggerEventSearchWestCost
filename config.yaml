@@ -975,7 +975,8 @@ sources:
       enabled: true
     - name: "Skift (Travel Industry)"
       url: "https://skift.com/feed/"
-      enabled: true- name: "Pacific Business News"
+      enabled: true
+      - name: "Pacific Business News"
       url: "https://www.bizjournals.com/pacific/feed/rss2.xml"
       enabled: true
     - name: "Puget Sound Business Journal"
@@ -1013,6 +1014,18 @@ sources:
       enabled: true
     - name: "Kansas City Business Journal"
       url: "https://www.bizjournals.com/kansascity/feed/rss2.xml"
+      enabled: true
+      - name: "Modern Healthcare"
+      url: "https://www.modernhealthcare.com/rss/news.rss"
+      enabled: true
+    - name: "Behavioral Health Business"
+      url: "https://bhbusiness.com/feed/"
+      enabled: true
+    - name: "Chronicle of Philanthropy"
+      url: "https://www.philanthropy.com/feed"
+      enabled: true
+    - name: "Engineering News-Record"
+      url: "https://www.enr.com/rss/news"
       enabled: true
 
   google_news:
