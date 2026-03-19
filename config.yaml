@@ -736,10 +736,10 @@ sources:
       enabled: true
     - name: "Reuters Business"
       url: "https://feeds.reuters.com/reuters/businessNews"
-      enabled: true
+      enabled: false
     - name: "Business Insider"
       url: "https://feeds.businessinsider.com/custom/all"
-      enabled: true
+      enabled: false
     - name: "1888 Press Release"
       url: "https://www.1888pressrelease.com/rss/today.xml"
       enabled: true
@@ -763,28 +763,28 @@ sources:
       enabled: true
     - name: "ProPublica - Nonprofits"
       url: "https://www.propublica.org/feeds/propublica/main"
-      enabled: true
+      enabled: false
     - name: "QSR Magazine"
       url: "https://www.qsrmagazine.com/rss.xml"
       enabled: true
     - name: "Crunchbase News"
       url: "https://news.crunchbase.com/feed/"
-      enabled: true
+      enabled: false
     - name: "VC News Daily"
       url: "http://feeds.feedburner.com/vcnewsdaily"
-      enabled: true
+      enabled: false
     - name: "PEHub"
       url: "https://www.pehub.com/feed/"
-      enabled: true
+      enabled: false
     - name: "Buyouts Insider"
       url: "https://www.buyoutsinsider.com/feed/"
-      enabled: true
+      enabled: false
     - name: "NVCA"
       url: "https://nvca.org/feed/"
-      enabled: true
+      enabled: false
     - name: "Private Equity Insights"
       url: "https://pe-insights.com/feed/"
-      enabled: true
+      enabled: false
     - name: "Fierce Healthcare"
       url: "https://www.fiercehealthcare.com/rss/xml"
       enabled: true
