@@ -755,8 +755,6 @@ company_filters:
     - "Oracle"
     - "Salesforce"
 
-  min_employees: 20
-  max_employees: 2000
   min_revenue_millions: 5
   max_revenue_millions: 200
 
