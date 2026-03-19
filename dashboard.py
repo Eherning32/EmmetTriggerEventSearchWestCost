@@ -107,7 +107,7 @@ def load_events(days: int = 30, search: str = None) -> pd.DataFrame:
         query = client.table('events').select('*')
         cutoff_date = (datetime.now() - timedelta(days=days)).isoformat()
         query = query.gte('discovered_at', cutoff_date)
-        response = query.order('discovered_at', desc=True).limit(1000).execute()
+        response = query.order('discovered_at', desc=True).limit(200).execute()
 
         if not response.data:
             return pd.DataFrame()
