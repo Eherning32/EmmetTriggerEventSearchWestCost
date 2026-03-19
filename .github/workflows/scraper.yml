@@ -23,8 +23,7 @@ jobs:
         with:
           path: trigger_events.db
           key: trigger-events-db-${{ github.run_id }}
-          restore-keys: |
-            trigger-events-db-
+          
 
       - name: Install dependencies
         run: |
