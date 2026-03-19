@@ -154,12 +154,26 @@ class RSSScraper(BaseScraper):
         # Track recommendation reasoning for stable targets
         recommendation_reasoning = None
 
-        # STEP 3: If dateline is in territory, ALWAYS include (as appropriate event type)
+      # STEP 3: If dateline is in territory, apply industry filter THEN include
         if dateline_in_territory:
+            # Still require industry match - dateline alone is not enough
+            matches_target_industry, matches_excluded = self.matches_industry(full_text)
+
+            # Skip excluded industries even if dateline is in territory
+            if matches_excluded:
+                return None
+
+            # Skip if no industry match - this is the main noise fix
+            if not matches_target_industry:
+                return None
+
+            # Skip public companies
+            if self.is_public_company(full_text):
+                return None
+
             # If no specific trigger event detected, mark as stable target
             if not event_type:
                 event_type = EventType.STABLE_TARGET
-                # Generate simple reasoning
                 extracted_company = company_name or self.extract_company_name(full_text)
                 matched_industries = self.get_matched_industries(full_text)
                 location_info = dateline_matched_location or "territory"
