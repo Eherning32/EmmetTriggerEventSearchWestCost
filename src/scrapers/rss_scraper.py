@@ -124,6 +124,12 @@ class RSSScraper(BaseScraper):
 
         # Combine title and summary for analysis
         full_text = f"{title} {summary}"
+        # PRE-FILTER: Check industry and public company FIRST
+        matches_target_industry, matches_excluded = self.matches_industry(full_text)
+        if matches_excluded or not matches_target_industry:
+            return None
+        if self.is_public_company(full_text):
+            return None
 
         # STEP 1: Check if ANY dateline location is in our territory (HIGHEST PRIORITY)
         # If PR is from our territory, we want to see it - period.
