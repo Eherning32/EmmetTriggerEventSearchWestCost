@@ -182,6 +182,10 @@ class RSSScraper(BaseScraper):
             if matches_excluded:
                 return None
 
+            # Hard filter - must match target industry to proceed
+            if not matches_target_industry:
+                return None
+
             # Skip public companies (we target mid-market private)
             if self.is_public_company(full_text):
                 return None
