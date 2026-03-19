@@ -253,17 +253,20 @@ class BaseScraper(ABC):
         """
         Check if text matches target industries.
         Returns: (matches_target, matches_excluded)
+        Uses word-boundary matching to prevent partial matches.
         """
         text_lower = text.lower()
 
-        # Check exclusions first
+        def word_match(keyword, text):
+            pattern = r'\b' + re.escape(keyword) + r'\b'
+            return bool(re.search(pattern, text))
+
         for excluded in self.excluded_industries:
-            if excluded in text_lower:
+            if word_match(excluded, text_lower):
                 return False, True
 
-        # Check target industries
         for industry in self.industries:
-            if industry in text_lower:
+            if word_match(industry, text_lower):
                 return True, False
 
         return False, False
@@ -489,11 +492,12 @@ class BaseScraper(ABC):
 
         return " | ".join(parts) if parts else "Matches territory and industry criteria"
 
-    def get_matched_industries(self, text: str) -> List[str]:
-        """Get list of matched industry keywords."""
+ def get_matched_industries(self, text: str) -> List[str]:
+        """Get list of matched industry keywords using word boundaries."""
         text_lower = text.lower()
         matched = []
         for industry in self.industries:
-            if industry in text_lower:
+            pattern = r'\b' + re.escape(industry) + r'\b'
+            if re.search(pattern, text_lower):
                 matched.append(industry)
-        return matched[:5]  # Limit to top 5
+        return matched[:5]
