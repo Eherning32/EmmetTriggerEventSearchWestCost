@@ -492,12 +492,12 @@ class BaseScraper(ABC):
 
         return " | ".join(parts) if parts else "Matches territory and industry criteria"
 
- def get_matched_industries(self, text: str) -> List[str]:
-        """Get list of matched industry keywords using word boundaries."""
-        text_lower = text.lower()
-        matched = []
-        for industry in self.industries:
-            pattern = r'\b' + re.escape(industry) + r'\b'
-            if re.search(pattern, text_lower):
-                matched.append(industry)
-        return matched[:5]
+    def get_matched_industries(self, text: str) -> List[str]:
+            """Get list of matched industry keywords using word boundaries."""
+            text_lower = text.lower()
+            matched = []
+            for industry in self.industries:
+                pattern = r'\b' + re.escape(industry) + r'\b'
+                if re.search(pattern, text_lower):
+                    matched.append(industry)
+            return matched[:5]
