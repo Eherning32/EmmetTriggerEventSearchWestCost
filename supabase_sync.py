@@ -35,7 +35,7 @@ def get_events_from_db(db_path='trigger_events.db'):
 
     cursor.execute('''
         SELECT id, title, company_name, event_type, description,
-               url, published_date, discovered_date, lead_status, notes
+               url, published_date, discovered_date, lead_status, notes, relevance_score
         FROM events
         ORDER BY discovered_date DESC
     ''')
@@ -78,7 +78,8 @@ def sync_to_supabase():
                 'published_date': event.get('published_date', ''),
                 'discovered_at': event.get('discovered_date', datetime.now().isoformat()),
                 'lead_status': lead_status,
-                'notes': event.get('notes', '')
+                'notes': event.get('notes', ''),
+                'relevance_score': event.get('relevance_score', 0)
             }
 
             client.table('events').upsert(data, on_conflict='id').execute()
