@@ -237,18 +237,20 @@ class BaseScraper(ABC):
             if matched:
                 return True, matched
 
-        # Check regions in full text
+       # Check regions and cities only in first 300 characters (dateline/opening)
+        opening = text_lower[:300]
+
         for region in self.regions:
-            if region in text_lower:
+            pattern = r'\b' + re.escape(region) + r'\b'
+            if re.search(pattern, opening):
                 matched.append(region)
 
-        # Check cities in full text
         for city in self.cities:
-            if city in text_lower:
+            pattern = r'\b' + re.escape(city) + r'\b'
+            if re.search(pattern, opening):
                 matched.append(city)
 
         return len(matched) > 0, matched
-
     def matches_industry(self, text: str) -> tuple[bool, bool]:
         """
         Check if text matches target industries.
