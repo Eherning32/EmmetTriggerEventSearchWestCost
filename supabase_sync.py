@@ -79,7 +79,7 @@ def sync_to_supabase():
                 'discovered_at': event.get('discovered_date', datetime.now().isoformat()),
                 'lead_status': lead_status,
                 'notes': event.get('notes', ''),
-                'relevance_score': event.get('relevance_score', 0)
+                'relevance_score': int(event.get('relevance_score') or 0)
             }
 
             client.table('events').upsert(data, on_conflict='id').execute()
