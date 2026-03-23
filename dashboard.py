@@ -306,12 +306,12 @@ def main():
     # Load all events
     df = load_events(days=days, search=search if search else None)
 
-if df is not None and not df.empty:
-    df = df[df['relevance_score'] >= 60]
+    if df is not None and not df.empty:
+        df = df[df['relevance_score'] >= 60]
 
-if df.empty:
-    st.info("No events found. Run the scraper to populate data.")
-    return
+    if df.empty:
+        st.info("No events found. Run the scraper to populate data.")
+        return
 
     # Stats row
     stats = get_stats(df)
