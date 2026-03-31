@@ -307,6 +307,7 @@ def main():
     df = load_events(days=days, search=search if search else None)
 
     if df is not None and not df.empty:
+        df['relevance_score'] = pd.to_numeric(df['relevance_score'], errors='coerce').fillna(0)
         df = df[df['relevance_score'] >= 60]
 
     if df.empty:
