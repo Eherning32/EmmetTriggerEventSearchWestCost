@@ -202,14 +202,13 @@ class GoogleNewsScraper(BaseScraper):
         if self.is_excluded_location(full_text):
             return None
 
-        # TERRITORY FILTERING
-        # Skip territory filter for LinkedIn searches (executives don't always mention location)
-        if not skip_territory_filter:
-            # STRICT FILTERING: Require territory match OR target company
-            # Industry alone is NOT sufficient (avoids international companies)
-            if self.require_territory_match:
-                if not (in_territory or matches_company):
-                    return None
+        # TERRITORY FILTERING - no exceptions for LinkedIn
+        if self.require_territory_match:
+            if not (in_territory or matches_company):
+                return None
+        else:
+            if not (in_territory or matches_target_industry or matches_company):
+                return None
             else:
                 # Fallback to looser filtering if disabled
                 if not (in_territory or matches_target_industry or matches_company):
