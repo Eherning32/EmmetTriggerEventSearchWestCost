@@ -322,11 +322,11 @@ class BaseScraper(ABC):
 
         # Event type scoring
         type_scores = {
-            EventType.CFO_HIRE: 40,
-            EventType.EXECUTIVE_HIRE: 30,
-            EventType.MERGER_ACQUISITION: 35,
-            EventType.FUNDING: 25,
-            EventType.OTHER: 10
+            EventType.CFO_HIRE: 55,
+            EventType.EXECUTIVE_HIRE: 45,
+            EventType.MERGER_ACQUISITION: 50,
+            EventType.FUNDING: 40,
+            EventType.OTHER: 20
         }
         score += type_scores.get(event_type, 10)
 
